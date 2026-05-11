@@ -475,9 +475,9 @@ def main_worker_stage1(args, log_s1_name, log_s2_name, subdir):
             features_ir = torch.cat([features_ir[f].unsqueeze(0) for f, _, _ in sorted(dataset_ir.train)], 0)
 
 
-            k1 = exponential_decay_k1(20, args.epochs-1, epoch, 2)
+            k1 = exponential_decay_k1(20, args.epochs-1, epoch, 1.5)
             print('k1:', k1)
-            kb = exponential_decay_kb(3, args.epochs-1, epoch, 2)
+            kb = exponential_decay_kb(3, args.epochs-1, epoch, 1.5)
             print('kb:', kb)
 
             rerank_dist_ir = compute_camera_invariant_jaccard_distance(features_ir, k1=k1, kb=kb, search_option=3,file=sorted(dataset_ir.train),camera_num=1)
@@ -909,7 +909,7 @@ def main_worker_stage2(args, log_s1_name, log_s2_name, subdir,subdir_update=None
             del cluster_loader_ir
             features_ir = torch.cat([features_ir[f].unsqueeze(0) for f, _, _ in sorted(dataset_ir.train)], 0)
 
-            k1 = exponential_decay_k1(30, args.epochs-1, epoch, 1.5)
+            k1 = exponential_decay_k1(30, args.epochs-1, epoch, 2)
             print('k1:', k1)
             kb = exponential_decay_kb(3, args.epochs-1, epoch, 3)
             print('kb:',kb)
